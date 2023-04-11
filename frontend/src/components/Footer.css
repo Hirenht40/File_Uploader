@@ -1,0 +1,19 @@
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+  }
+  
+  .footer-container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  
+  .footer-text {
+    margin: 0;
+  }
+  
