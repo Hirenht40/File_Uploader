@@ -31,7 +31,7 @@ const LoginPage = () => {
 
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/homepage');
+        navigate('/');
       } else {
         toast.error(data.message);
       }
@@ -77,7 +77,7 @@ const LoginPage = () => {
   
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/homepage');
+        navigate('/');
       } else {
         toast.error(data.message);
       }

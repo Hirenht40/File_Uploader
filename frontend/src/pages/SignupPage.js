@@ -28,7 +28,7 @@ const SignupPage = () => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         toast.success("'Sign up successful!");
-        navigate('/homepage');
+        navigate('/');
       } else {
         toast.error(data.message);
       }
@@ -59,7 +59,7 @@ const SignupPage = () => {
   
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        navigate('/homepage');
+        navigate('/');
       } else {
         toast.error(data.message);
       }
