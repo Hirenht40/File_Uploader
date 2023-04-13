@@ -133,3 +133,69 @@
     margin: 10px 0;
   }
   
+
+  /* For screens smaller than 576px (extra small) */
+@media (max-width: 575.98px) {
+  .login-container {
+    max-width: 100%;
+    margin-top: 10%;
+    border-radius: 0;
+    box-shadow: none;
+    border: none;
+    padding: 10px;
+  }
+  
+  .login-form input[type='email'],
+  .login-form input[type='password'] {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  .login-form button[type='submit'] {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* For screens between 576px and 767.98px (small) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+  .login-container {
+    max-width: 90%;
+    margin-top: 5%;
+  }
+  
+  .login-form input[type='email'],
+  .login-form input[type='password'] {
+    margin-right: 0;
+    margin-left: 0;
+  }
+  
+  .login-form button[type='submit'] {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
+
+/* For screens between 768px and 991.98px (medium) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .login-container {
+    max-width: 80%;
+    margin-top: 5%;
+  }
+}
+
+/* For screens between 992px and 1199.98px (large) */
+@media (min-width: 992px) and (max-width: 1199.98px) {
+  .login-container {
+    max-width: 60%;
+    margin-top: 3%;
+  }
+}
+
+/* For screens larger than 1200px (extra large) */
+@media (min-width: 1200px) {
+  .login-container {
+    max-width: 500px;
+    margin-top: 2%;
+  }
+}

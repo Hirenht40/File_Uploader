@@ -5,6 +5,7 @@ import { GoogleLogin } from 'react-google-login';
 import "./LoginPage.css"
 
 
+import { Link } from 'react-router-dom';
 
 
 const LoginPage = () => {
@@ -12,7 +13,6 @@ const LoginPage = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  console.log("hi", process.env.REACT_APP_CLIENTID)
 
 
   const handleSubmit = async (e) => {
@@ -37,7 +37,7 @@ const LoginPage = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error('An error occurred. Please try again later.');
+      toast.error(error.message);
     }
   };
 
@@ -118,7 +118,7 @@ const LoginPage = () => {
     {isAuthenticated ? (
       <p>You are authenticated!</p>
     ) : (
-      <p>Don't have an account? <a href="/signup">Sign up to create one.</a></p>
+      <p>Don't have an account? <Link to="/signup">Sign up to create one.</Link></p>
     )}
     <p className="or-divider">Or</p>
   </div>

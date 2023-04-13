@@ -1,4 +1,5 @@
 body {
+
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -25,6 +26,8 @@ code {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0.95;
+
 }
 
 .popup-content {
@@ -193,4 +196,204 @@ transform: scale(1.4) skewX(-0.4deg);
 
 .upload-btn:hover {
   background-color: #00688B;
+}
+
+
+.loader-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loader-wrapper .file-status {
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.search-container input[type="text"] {
+  padding: 10px;
+  width: 35%;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  outline: none;
+  font-size: 16px;
+  transition: all 0.3s;
+}
+
+.search-container input[type="text"]:focus {
+  border-color: #00BFFF;
+  box-shadow: 0 0 5px #00BFFF;
+}
+
+
+
+
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.file-input {
+  width: 80%;
+  padding: 10px;
+  border: none;
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  font-size: 1.2em;
+  font-weight: 500;
+}
+
+.upload-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #008CBA;
+  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+}
+
+.upload-btn:hover {
+  background-color: #00688B;
+}
+
+@media only screen and (max-width: 600px) {
+  .form-container {
+    flex-direction: column;
+    margin: auto;
+    max-width: 700px; /* Set a maximum width for the container */
+    padding: 0 20px; /* Add some padding to the container */
+    width: 100%; /* Set the container to take up 100% of the available width */
+  
+  }
+  
+  .file-input {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+  
+  .upload-btn {
+    margin-left: 19px;
+    margin-top: 20px;
+    width: 70%;
+
+  }
+}
+
+
+@media only screen and (max-width: 500px) {
+  .form-container {
+    flex-direction: column;
+    margin: auto;
+    max-width: 700px; /* Set a maximum width for the container */
+    padding: 0 20px; /* Add some padding to the container */
+    width: 100%; /* Set the container to take up 100% of the available width */
+  
+  }
+  
+  .file-input {
+    width: 40%;
+    margin-bottom: 10px;
+  }
+  
+  .upload-btn {
+  
+    width: 94%;
+    margin-left: 0px;
+
+  }
+}
+
+
+
+
+
+/* For screens smaller than 600px */
+@media screen and (max-width: 600px) {
+  .search-container {
+    flex-direction: column;
+  }
+
+  .search-container input[type="text"] {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+}
+
+/* For screens larger than 600px */
+@media screen and (min-width: 600px) {
+  .search-container input[type="text"] {
+    width: 50%;
+  }
+}
+
+
+
+
+
+/* Small screens */
+@media screen and (max-width: 480px) {
+  .popup-content {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .google-button {
+    transform: scale(1);
+  }
+
+  .card {
+    width: 100%;
+  }
+
+  .card__image {
+    height: 50%;
+  }
+
+  .card__content {
+    height: 40%;
+  }
+}
+
+/* Medium screens */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+  .popup-content {
+    width: 80%;
+    height: 80%;
+  }
+
+  .google-button {
+    transform: scale(1.2);
+  }
+
+  .card {
+    width: calc(50% - 40px);
+  }
+}
+
+/* Large screens */
+@media screen and (min-width: 769px) {
+  .popup-content {
+    width: 50%;
+    height: 70%;
+  }
+
+  .google-button {
+    transform: scale(1.4);
+  }
+
+  .card {
+    width: calc(33.33% - 40px);
+  }
 }

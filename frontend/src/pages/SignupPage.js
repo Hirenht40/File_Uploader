@@ -66,6 +66,8 @@ const SignupPage = () => {
     } catch (error) {
       console.log(error);
       toast.error('An error occurred. Please try again later.');
+      toast.error(error);
+
     }
   };
   
@@ -94,9 +96,8 @@ const SignupPage = () => {
         <button type="submit">Sign up</button>
         
       </form>
-      <p>
-        Already have an account? <a href="/login">Log in</a>
-      </p>
+      
+      <p>Already have an account? <Link to="/login">Log in</Link></p>
       <p>Or</p>
       <div>
       <GoogleLogin

@@ -28,7 +28,10 @@ function HomePage() {
   const [fileName, setFileName] = useState('');
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [fileStatus, setFileStatus] = useState('');
 
+  
   useEffect(() => {
     fetchDocuments();
   }, []);
@@ -40,12 +43,22 @@ function HomePage() {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          searchQuery: searchQuery,
+        },
       });
       setDocuments(response.data);
     } catch (error) {
       console.error(error);
     }
   };
+
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
+    fetchDocuments();
+  };
+  
+  
 
   const handleFileSelect = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -58,6 +71,7 @@ function HomePage() {
       const token = localStorage.getItem('token');
       const formData = new FormData();
       formData.append('document', selectedFile);
+      setFileStatus("Uplaoding........")
       setLoading(true); // show loader
       await axios.post('/api/document/upload', formData, {
         headers: {
@@ -85,6 +99,8 @@ function HomePage() {
   const handleDelete = async (id) => {
     try {
       const token = localStorage.getItem('token');
+      setFileStatus("Deleting........")
+
       setLoading(true); // show spinner
       await axios.delete(`/api/document/documents/${id}`, {
         headers: {
@@ -104,12 +120,17 @@ function HomePage() {
   const handleDownload = async (id, fileName) => {
     try {
       const token = localStorage.getItem('token');
+      setLoading(true); // show spinner
+      setFileStatus("Downloading........")
+
       const response = await axios.get(`/api/document/documents/${id}/download`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
         responseType: 'blob',
       });
+      setLoading(false); // hide spinner
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement('a');
       link.href = url;
@@ -119,14 +140,38 @@ function HomePage() {
       link.parentNode.removeChild(link);
   
       toast.success('File downloaded successfully'); // show toast message
+      setOpen(false)
+
     } catch (error) {
       console.error(error);
+      setLoading(false); // hide spinner in case of error
+
     }
   };
+
+
+  const randomColor = () => {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
   return (
     <div>
           
-      <h1>Documents</h1>
+          <h1>Documents ({documents.length})</h1>
+          <div className="search-container">
+  <input
+    type="text"
+    placeholder="Search documents"
+    value={searchQuery}
+    onChange={handleSearch}
+  />
+</div>
+
       <div className="form-container">
   <form className="form" onSubmit={handleFileUpload}>
     <label className='file-input'>
@@ -139,25 +184,36 @@ function HomePage() {
     {fileName && <p>{fileName}</p>}
   </form>
 </div>
-      <Popup open={open}>
-      {loading && <Loader type="Oval" color="#00BFFF" height={150} width={150} />}
-      </Popup>
+  <Popup open={open}>
+  <div className="loader-wrapper">
+    {loading && <Loader type="BallTriangle" color={randomColor()} height={150} width={150} />}
+    <div className="file-status">{fileStatus}</div>
+  </div>
+</Popup>
+
+
+
 
       <div className="cards">
-  {documents.map((document) => (
+      {documents
+  .filter((document) =>
+    document.fileName.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+  .map((document) => (
     <div className="card" key={document._id}>
       <img src={`${getMaterialFileIcon(document.fileName)}`} alt="file icon" className="card__image" />
       <div className="card__content">
         <h2 className="card__title">{document.fileName}</h2>
         <div className="card__actions">
           <button onClick={() => {handleDelete(document._id);setOpen(true)}}><DeleteForeverIcon/></button>
-          <button onClick={() => handleDownload(document._id, document.fileName)}>
-          <CloudDownloadIcon/>
+          <button onClick={() => {handleDownload(document._id, document.fileName);setOpen(true)}}>
+            <CloudDownloadIcon/>
           </button>
         </div>
       </div>
     </div>
   ))}
+
 </div>
 
     </div>

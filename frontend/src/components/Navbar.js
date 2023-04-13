@@ -13,17 +13,23 @@ const Navbar = () => {
     navigate('/login');
   }
 
+  const isLoggedIn = !!localStorage.getItem('token');
+
   return (
     <nav className="navbar">
       <div className="navbar-left">
         <Link to="/" className="logo">FileUploader</Link>
       </div>
       <div className="navbar-right">
-        <Link to="/login" className="signin-btn">Sign In</Link>
-        <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+        {isLoggedIn ? (
+          <button className="logout-btn" onClick={handleLogout}>Log Out</button>
+        ) : (
+          <Link to="/login" className="signin-btn">Sign In</Link>
+        )}
       </div>
     </nav>
   );
+  
 };
 
 export default Navbar;

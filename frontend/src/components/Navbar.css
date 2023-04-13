@@ -1,65 +1,76 @@
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff;
-    height: 80px;
-    padding: 0 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to right,#E1A2B8, #9F2BC1);
   
-  .navbar-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    text-decoration: none;
-  }
-  
-  .navbar-right {
-    display: flex;
-    align-items: center;
-  }
-  
-  .nav-link {
-    font-size: 16px;
-    color: #333;
-    text-decoration: none;
-    margin-right: 20px;
+  height: 80px;
+  padding: 0 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: 'Open Sans', sans-serif;
+ 
+}
 
-  }
-  
-  .signin-btn,
-  .logout-btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    cursor: pointer;
-  }
-  
-  .signin-btn {
-    background-color: #008CBA;
-    margin-right: 10px;
-    text-decoration: none;
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
 
-  }
-  
-  .signin-btn:hover {
-    background-color: #00688B;
-  }
-  
-  .logout-btn {
-    background-color: #DC143C;
-  }
-  
-  .logout-btn:hover {
-    background-color: #B31B1B;
-  }
-  
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link {
+  font-size: 16px;
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #00c6ff;
+}
+
+.signin-btn,
+.logout-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.signin-btn {
+  background-color: #fff;
+  color: #0072ff;
+  margin-right: 10px;
+  text-decoration: none;
+}
+
+.signin-btn:hover {
+  background-color: #0072ff;
+}
+
+.logout-btn {
+  background-color: #DC143C;
+}
+
+.logout-btn:hover {
+  background-color: #B31B1B;
+}
+
+.signin-btn:hover, .logout-btn:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
