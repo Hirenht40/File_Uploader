@@ -394,6 +394,6 @@ transform: scale(1.4) skewX(-0.4deg);
   }
 
   .card {
-    width: calc(33.33% - 40px);
+    width: calc(33.33% - 180px);
   }
 }

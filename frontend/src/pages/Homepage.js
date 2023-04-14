@@ -71,7 +71,7 @@ function HomePage() {
       const token = localStorage.getItem('token');
       const formData = new FormData();
       formData.append('document', selectedFile);
-      setFileStatus("Uplaoding........")
+      setFileStatus(`Uplaoding: ${selectedFile.name}`)
       setLoading(true); // show loader
       await axios.post('/api/document/upload', formData, {
         headers: {
@@ -96,32 +96,36 @@ function HomePage() {
   
   
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (id, document) => {
     try {
       const token = localStorage.getItem('token');
-      setFileStatus("Deleting........")
-
-      setLoading(true); // show spinner
-      await axios.delete(`/api/document/documents/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setLoading(false); // hide spinner
-      fetchDocuments();
-      toast.success('Document deleted successfully');
-      setOpen(false)
+      setFileStatus(`Deleting: ${document}`)
+  
+      const confirmDelete = window.confirm(`Are you sure you want to delete ${document}?`); // display confirmation dialog box
+      if (confirmDelete) {
+        setLoading(true); // show spinner
+        await axios.delete(`/api/document/documents/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setLoading(false); // hide spinner
+        fetchDocuments();
+        toast.success('Document deleted successfully');
+        setOpen(false)
+      }
     } catch (error) {
       console.error(error);
       setLoading(false); // hide spinner in case of error
     }
   };
   
+  
   const handleDownload = async (id, fileName) => {
     try {
       const token = localStorage.getItem('token');
       setLoading(true); // show spinner
-      setFileStatus("Downloading........")
+      setFileStatus(`Downloading: ${fileName}`)
 
       const response = await axios.get(`/api/document/documents/${id}/download`, {
         headers: {
@@ -205,7 +209,7 @@ function HomePage() {
       <div className="card__content">
         <h2 className="card__title">{document.fileName}</h2>
         <div className="card__actions">
-          <button onClick={() => {handleDelete(document._id);setOpen(true)}}><DeleteForeverIcon/></button>
+          <button onClick={() => {handleDelete(document._id, document.fileName);setOpen(true)}}><DeleteForeverIcon/></button>
           <button onClick={() => {handleDownload(document._id, document.fileName);setOpen(true)}}>
             <CloudDownloadIcon/>
           </button>
