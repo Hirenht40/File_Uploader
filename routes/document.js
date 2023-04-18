@@ -19,7 +19,7 @@ cloudinary.config({
 
 // Configure Multer storage engine
 // const storage = multer.diskStorage({
-//   filename: function(req, file, cb) {
+//   filename: function(req, file, cb) {s
 //     cb(null, file.originalname);
 //   }
 // });

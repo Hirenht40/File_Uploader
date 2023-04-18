@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { GoogleLogin } from 'react-google-login';
-
+import { LoginSocialGoogle } from "reactjs-social-login";
+import { GoogleLoginButton } from "react-social-login-buttons";
 import './SignupPage.css';
 
 const SignupPage = () => {
@@ -39,41 +39,41 @@ const SignupPage = () => {
   };
 
   const onSuccess = async (googleUser) => {
-    console.log('Login Success:', googleUser);
+    console.log("Login Success:", googleUser.data.sub);
     setIsAuthenticated(true);
-  
+
     // Get the user's Google ID and email
-    const { sub: googleId, profileObj: { email } } = googleUser;
-  
+    const {
+      sub: googleId,
+      email: email,
+    } = googleUser.data;
+    console.log("Login Success:", email, googleId);
+
     try {
       // Send a request to the server to register the user
-      const response = await fetch('/google-login', {
-        method: 'POST',
+      const response = await fetch("/google-login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, googleId })
+        body: JSON.stringify({ email, googleId }),
       });
-  
+
       const data = await response.json();
-  
+
       if (response.ok) {
-        localStorage.setItem('token', data.token);
-        navigate('/');
+        localStorage.setItem("token", data.token);
+        navigate("/");
       } else {
         toast.error(data.message);
       }
     } catch (error) {
       console.log(error);
-      toast.error('An error occurred. Please try again later.');
-      toast.error(error);
-
+      toast.error("An error occurred. Please try again later.");
     }
   };
+
   
-    const onFailure = (error) => {
-      console.log('Login Error:', error);
-    };
 
   return (
     <div className="signup-container">
@@ -100,15 +100,18 @@ const SignupPage = () => {
       <p>Already have an account? <Link to="/login">Log in</Link></p>
       <p>Or</p>
       <div>
-      <GoogleLogin
-  clientId= {process.env.REACT_APP_CLIENTID}
-  buttonText="Signup with Google"
-  onSuccess={onSuccess}
-  onFailure={onFailure}
-  cookiePolicy={'single_host_origin'}
-  responseType="code,token"
-  isSignedIn={false}
-/>
+      <LoginSocialGoogle
+          scope="openid profile email"
+          discoveryDocs="claims_supported"
+          access_type="offline"
+          client_id={process.env.REACT_APP_CLIENTID || ""}
+          onResolve={onSuccess}
+          onReject={(err) => {
+            console.log(err);
+          }}
+        >
+          <GoogleLoginButton />
+        </LoginSocialGoogle>
 
 
       </div>

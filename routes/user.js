@@ -2,8 +2,7 @@ const express = require('express');
 const session = require('express-session');
 const jwt = require('jsonwebtoken')
 
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
 const { loginUser, signupUser } = require('../controller/userController');
 require('dotenv').config();
 const User = require("../models/userModel")
@@ -22,29 +21,9 @@ router.use(session({
   saveUninitialized: false
 }));
 
-// Initialize Passport.js middleware after session middleware
-router.use(passport.initialize());
-router.use(passport.session());
 
-// Google authentication strategy
-passport.use(new GoogleStrategy({
-  clientID: process.env.CLIENTID,
-  clientSecret: process.env.CLIENTSECRET,
-  callbackURL: '/google/callback'
-}, (accessToken, refreshToken, profile, done) => {
-  // You can perform some action with the user's Google profile here
-  console.log(profile);
-  done(null, profile);
-}));
 
-// Serialize and deserialize user
-passport.serializeUser((user, done) => {
-  done(null, user);
-});
 
-passport.deserializeUser((user, done) => {
-  done(null, user);
-});
 
 
   
